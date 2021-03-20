@@ -1,31 +1,12 @@
-## main.py
-## Main python program for the Water dispenser project for Element14 Presents
+###############################################################################
+## File: main.py
+## Desc: Main program
+## Project: WaterDispenser for Element14 Presents
+## License: 
 ##
 ## By: Kaleb Clark (KalebTheMaker)
-import pygame
-from pygame.locals import *
-import os
-from time import sleep
-from pitft_touchscreen import pitft_touchscreen
+###############################################################################
 from WDDisplay import WDDisplay
-
-# Colors
-WHITE   = (255,255,255)
-BLACK   = (0, 0, 0)
-RED     = (255, 0, 0)
-GREEN   = (0, 255, 0)
-BLUE    = (0, 0, 255)
-AMBER   = (255, 176, 0)
-LTAMBER = (255, 204, 0)
-
-os.putenv('SDL_FBDEV', '/dev/fb1')
-# os.putenv('SDL_MOUSEDRV', 'TSLIB')
-# os.putenv('SDL_MOUSEDEV', '/dev/input/touchscreen')
-
-fav_buttons = ['F. Press', 'Bottle', 'Pint', 'Coffee Cup']
-
-
-
 
 ## Test BS
 def getButton(e, left, top, width, height):
@@ -41,6 +22,7 @@ def getButton(e, left, top, width, height):
 if __name__ == '__main__':
     t = pitft_touchscreen()
     t.start()
+    
     lcd = WDDisplay()
     lcd.favButtons()
 
