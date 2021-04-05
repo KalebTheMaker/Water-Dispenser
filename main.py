@@ -7,34 +7,45 @@
 ## By: Kaleb Clark (KalebTheMaker)
 ###############################################################################
 from WDDisplay import WDDisplay
+from Valve import Valve
+from pitft_touchscreen import pitft_touchscreen
 
-## Test BS
-def getButton(e, left, top, width, height):
-    x, y = e['x'], e['y']
-    #print("X: %d, Y: %d" % (x, y))
-    if x >= left and x <= (left+width):
-        if y >= top and y <= (top+height):
-            return True
-    
-    return False
+# Global vars
+handling_button = False
+active_button = None
 
 ## Main Program
 if __name__ == '__main__':
     t = pitft_touchscreen()
     t.start()
+
+    vhot    = Valve(5)
+    vcold   = Valve(6)
     
     lcd = WDDisplay()
-    lcd.favButtons()
-
-    print(lcd.buttons)
+    lcd.drawFavButtons()
+    lcd.drawStaticButtons()
+    print(lcd.btns)
+    lcd.update()
 
     try: 
         while True:
-            lcd.click(t)
-            # while not t.queue_empty():
-            #     for e in t.get_event():
-            #         if e['x'] is not None and e['y'] is not None:
-            #             print(getButton(e, 0, 200, 75, 40))
+            # Handle touchscreen inputs
+            if not handling_button:
+                while not t.queue_empty():
+                    for e in t.get_event():
+                        if e['x'] is not None and e['y'] is not None:
+                            handling_button = True
+                            active_button = lcd.buttonClick(e)
+                            # print(getButton(e, 0, 200, 75, 40))
+                            #print(lcd.buttonClick(e))
+
+            # Handle button events
+            if active_button is not None:
+                print(active_button)
+                active_button = None
+            
+            handling_button = False
 
     except KeyboardInterrupt:
         print("CTRL-C initiated. Deconstructing the universe")
