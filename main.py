@@ -9,6 +9,7 @@
 from pitft_touchscreen import pitft_touchscreen
 from Valve import Valve
 from Button import Button
+from Relay import Relay
 import pygame
 from pygame.locals import *
 from time import sleep
@@ -86,13 +87,14 @@ if __name__ == '__main__':
     setup()
     drawGeometry()
     btns.append(Button(0, lcd, AMBER, LTAMBER, fonts['16'], "GO", 5, 100, 200, 70))
-    btns.append(Button(1, lcd, AMBER, LTAMBER, fonts['16'], "Cold Valve", 220, 125, 100, 45))
-    btns.append(Button(2, lcd, AMBER, LTAMBER, fonts['16'], "Hot Valve", 220, 75, 100, 45))
-    btns.append(Button(3, lcd, AMBER, LTAMBER, fonts['16'], "Hot Status", 220, 5, 100, 65))
+    btns.append(Button(1, lcd, AMBER, LTAMBER, fonts['16'], "Cold Water", 220, 125, 100, 45))
+    btns.append(Button(2, lcd, AMBER, LTAMBER, fonts['16'], "Hot Water", 220, 75, 100, 45))
+    btns.append(Button(3, lcd, AMBER, LTAMBER, fonts['16'], "Heating", 220, 5, 100, 65))
 
     # Valves
     vhot = Valve(5)
     vcold = Valve(6)
+    relay = Relay(21)
 
     try:
         while is_running:
@@ -116,7 +118,9 @@ if __name__ == '__main__':
                     btns[btn_id].draw()
                     btn_id = None
                 elif btn_id == 3:   # HOT STATUS BUTTON PUSHED
-                    sleep(2)
+                    relay.toggle()
+                    btns[btn_id].state = relay.state
+                    btns[btn_id].draw()
                     btn_id = None
                 
                 btn_id = None
