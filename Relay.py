@@ -25,6 +25,9 @@ class Relay(object):
         GPIO.output(self.iopin, GPIO.LOW)
         self.state = False
 
+    def cleanup(self):
+        GPIO.cleanup()
+
     def toggle(self):
         if self.state == True:
             self.off()

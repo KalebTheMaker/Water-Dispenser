@@ -1,16 +1,20 @@
-## Valve.py
-## Class for controlling valves in the Water Dispenser project for Element15
-## 
+###############################################################################
+## File: Valve.py
+## Desc: Class for controlling Servo Valves
+## Project: WaterDispenser for Element14 Presents
+## License: 
+##
 ## By: Kaleb Clark (KalebTheMaker)
+###############################################################################
 import pigpio
 import time
 
 class Valve(object):
-    def __init__(self, iopin):
+    def __init__(self, iopin, open_val=500, close_val=1500):
         self.pio = pigpio.pi()
         self.iopin = iopin
-        self.open_val = 500
-        self.close_val = 1500
+        self.open_val = open_val
+        self.close_val = close_val
         self.state = False
         self.close()
 
