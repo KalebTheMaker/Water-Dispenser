@@ -17,11 +17,12 @@ class Relay(object):
         self.state = False
 
     def on(self):
+        print("Relay On")
         GPIO.output(self.iopin, GPIO.HIGH)
         self.state = True
 
-
     def off(self):
+        print("Relay Off")
         GPIO.output(self.iopin, GPIO.LOW)
         self.state = False
 
@@ -35,7 +36,3 @@ class Relay(object):
             self.on()
 
 
-# relay = Relay(21)
-# relay.on()
-# time.sleep(1)
-# relay.off()

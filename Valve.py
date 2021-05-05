@@ -19,11 +19,11 @@ class Valve(object):
         self.close()
 
     def open(self):
-        self.pio.set_servo_pulsewidth(self.iopin, 500)
+        self.pio.set_servo_pulsewidth(self.iopin, self.open_val)
         self.state = True
 
     def close(self):
-        self.pio.set_servo_pulsewidth(self.iopin, 1500)
+        self.pio.set_servo_pulsewidth(self.iopin, self.close_val)
         self.state = False
 
     def toggle(self):
